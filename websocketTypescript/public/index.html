@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>websockets</title>
+</head>
+<body>
+    listoo
+    <input type="text" name="" id="input">
+    <!-- <button id="input" onclick="enviar('hola')">Enviar</button> -->
+    <button id="enviar" type="submit" >Enviar</button>
+    <div id="cont"></div>
+    <script src="https://cdn.socket.io/3.1.1/socket.io.min.js" integrity="sha384-gDaozqUvc4HTgo8iZjwth73C6dDDeOJsAgpxBcMpZYztUfjHXpzrpdrHRdVp8ySO" crossorigin="anonymous"></script>
+    <script>
+
+       const socket = io.connect("http://localhost:8000/", {path: '/socket.io'});
+
+    //    function enviar(msg){
+    //         console.log('hola');
+    //         connection.send('msg');
+    //         console.log('hola');
+    //    }
+
+    const enviar = document.getElementById('enviar');
+        enviar.addEventListener("click", () => {
+            console.log('hola');
+            socket.emit("chat_message", 'messageInput.value');
+            console.log('hola');
+        });
+       
+       socket.on('msg', msg => {
+        //    alert(msg);
+            crear(msg)
+            console.log(msg);
+       })
+
+       function crear(msg){
+            console.log('hola')
+            var capa = document.getElementById("cont");
+            var h1 = document.createElement("p");
+            h1.innerHTML = msg;
+            capa.appendChild(h1);
+       }
+
+    </script>
+</body>
+</html>
